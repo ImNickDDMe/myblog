@@ -13,7 +13,14 @@ class PostAdminForm(forms.ModelForm):
     def clean(self):
         super().clean()
 
-        banned_words = ['dumbass', 'loser', 'Loser', 'Dumbass']
+        banned_words = [
+            'dumbass', 
+            'loser', 
+            'Loser', 
+            'Dumbass', 
+            'stupid', 
+            'Stupid'
+        ]
             
         for word in banned_words:
             if self.cleaned_data['title'] in word:
