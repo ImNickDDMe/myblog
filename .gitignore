@@ -1,5 +1,5 @@
 .sqlite3
-pyenv.cfg
+pyvenv.cfg
 Include
 Lib
 Scripts
