@@ -1,9 +1,8 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    return redirect('/posts')
 
 def posts(request):
-    return HttpResponse('Posts')
+    return render(request, 'posts.html')
