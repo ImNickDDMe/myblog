@@ -5,3 +5,5 @@ Lib
 Scripts
 __pycache__/
 *.sqlite3
+pg_service.conf
+.my_pgpass

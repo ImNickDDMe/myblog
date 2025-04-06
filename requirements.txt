@@ -1,3 +1,4 @@
 django
 django-tailwind
 django_browser_reload
+psycopg2
