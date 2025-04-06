@@ -23,5 +23,6 @@ admin.site.index_title = 'Manage Resources'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('blog.urls'))
+    path('blog/', include('blog.urls', namespace='blog')),
+    path('__reload__/', include('django_browser_reload.urls')),
 ]
