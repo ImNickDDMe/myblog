@@ -3,9 +3,11 @@ from .models import Post
 
 # Create your views here.
 def post_list(request):
-    return render(request, 'post/post_list.html')
+    posts = Post.objects.all()
 
-def post_details(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
+    return render(request, 'post/post_list.html', {'posts': posts })
 
-    return render(request, 'posts/post_details.html', {'post': post})
+def post_details(request, year, month, day, post_slug):
+    post = get_object_or_404(Post, slug=post_slug)
+
+    return render(request, 'post/post_details.html', {'post': post })

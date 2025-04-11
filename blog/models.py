@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 from django.db import models
 
 # Create your models here.
@@ -10,6 +11,7 @@ class Post(models.Model):
     publish = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    unique__for_date = 'publish'
 
     class Status(models.TextChoices):
         DRAFT = 'DF', 'Draft'
@@ -26,3 +28,11 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+    
+    def get_absolute_url(self):
+        return reverse('blog:post_details', kwargs={
+            'day': self.publish.day,
+            'month': self.publish.month,
+            'year': self.publish.year,
+            'post_slug': self.slug
+        })

@@ -3,75 +3,30 @@
 {% block title %}Posts{% endblock title %}
 
 {% block content %}
-    <div class="mt-10 space-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16">
+<div class="mt-10 space-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16">
+    {% for post in posts %}
         <article class="flex max-w-xl flex-col items-start justify-between">
             <div class="flex items-center gap-x-4 text-xs">
-                <time datetime="2020-03-16" class="text-gray-500">Mar 16, 2020</time>
-                <a href="{% url 'blog:post_list' %}"
+                <time datetime="{{ post.publish }}" class="text-gray-500">{{ post.publish }}</time>
+                <a href="#"
                     class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">tag1</a>
-                <a href="{% url 'blog:post_list' %}"
+                <a href="#"
                     class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">tag2</a>
             </div>
             <div class="group relative">
                 <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                    <a href="{% url 'blog:post_list' %}">
+                    <a href="{{ post.get_absolute_url }}">
                         <span class="absolute inset-0"></span>
-                        Boost your conversion rate
+                        {{ post.title }}
                     </a>
                 </h3>
-                <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">Illo sint voluptas. Error
-                    voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo
-                    necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel iusto
-                    corrupti dicta laboris incididunt.</p>
+                <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
+                    {{ post.body }}
+                </p>
             </div>
         </article>
+    {% endfor %}
 
-        <article class="flex max-w-xl flex-col items-start justify-between">
-            <div class="flex items-center gap-x-4 text-xs">
-                <time datetime="2020-03-16" class="text-gray-500">Mar 16, 2020</time>
-                <a href="{% url 'blog:post_list' %}"
-                    class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">tag1</a>
-                <a href="{% url 'blog:post_list' %}"
-                    class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">tag2</a>
-            </div>
-            <div class="group relative">
-                <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                    <a href="{% url 'blog:post_list' %}">
-                        <span class="absolute inset-0"></span>
-                        Boost your conversion rate
-                    </a>
-                </h3>
-                <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">Illo sint voluptas. Error
-                    voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo
-                    necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel iusto
-                    corrupti dicta laboris incididunt.</p>
-            </div>
-        </article>
-
-        <!-- More posts... -->
-
-        <!-- pagination.html -->
-        <nav class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"
-        aria-label="Pagination">
-        <div class="hidden sm:block">
-            <p class="text-sm text-gray-700">
-                Showing
-                <span class="font-medium">1</span>
-                to
-                <span class="font-medium">10</span>
-                of
-                <span class="font-medium">20</span>
-                results
-            </p>
-        </div>
-        <div class="flex flex-1 justify-between sm:justify-end">
-            <a href="{% url 'blog:post_list' %}"
-                class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">Previous</a>
-            <a href="{% url 'blog:post_list' %}"
-                class="relative ml-3 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">Next</a>
-        </div>
-    </nav>
-    <!-- end pagination.html -->
-
-    </div>
+    {% include 'post/pagination.html' %}
+</div>
 {% endblock content %}
