@@ -36,3 +36,19 @@ class Post(models.Model):
             'year': self.publish.year,
             'post_slug': self.slug
         })
+    
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    name = models.CharField(max_length=30)
+    email = models.CharField()
+    body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=False)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['name'], name='idx_comment_name')
+        ]
+
+        ordering = ['created_at']
