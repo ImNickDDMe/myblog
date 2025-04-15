@@ -3,4 +3,8 @@
 {% block title %}Share "{{ post.title }}"{% endblock title %}
 
 {% block content %}
+    <form action="{% url 'blog:post_share' post.slug %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+    </form>
 {% endblock content %}

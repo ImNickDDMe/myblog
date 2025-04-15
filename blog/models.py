@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from taggit.managers import TaggableManager
 from django.urls import reverse
 from django.db import models
 
@@ -12,6 +13,8 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     unique__for_date = 'publish'
+
+    tags = TaggableManager()
 
     class Status(models.TextChoices):
         DRAFT = 'DF', 'Draft'

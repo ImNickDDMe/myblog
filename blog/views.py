@@ -17,9 +17,14 @@ def post_details(request, year, month, day, post_slug):
         slug=post_slug
     )
 
-    return render(request, 'post/post_details.html', { 'post': post })
+    form = CommentForm()
 
-def post_share(request):
+    return render(request, 'post/post_details.html', { 
+        'post': post,
+        'form': form 
+    })
+
+def post_share(request, post_slug):
     if request.method == 'POST':
         form = EmailPostForm(request.POST)
 
@@ -27,8 +32,6 @@ def post_share(request):
             pass
     else:
         form = EmailPostForm()
-
-        post_slug = request.GET['post']
 
         post = get_object_or_404(
             Post,

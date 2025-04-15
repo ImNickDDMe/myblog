@@ -4,4 +4,9 @@
 
 {% block content %}
     {{ post.title }}
+
+    <form action="{% url 'blog:post_comment' post.slug %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+    </form>
 {% endblock content %}
