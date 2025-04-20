@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from .forms import EmailPostForm, CommentForm
-from .models import Post
+from .models import Post, Comment
 
 # Create your views here.
 def post_list(request):
@@ -17,10 +17,13 @@ def post_details(request, year, month, day, post_slug):
         slug=post_slug
     )
 
+    comments = Comment.objects.filter(post_id=post.id)
+
     form = CommentForm()
 
     return render(request, 'post/post_details.html', { 
         'post': post,
+        'comments': comments,
         'form': form 
     })
 

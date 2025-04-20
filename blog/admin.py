@@ -2,7 +2,7 @@ from django.utils.html import format_html
 from django.utils.http import urlencode
 from django.contrib import admin
 from django.urls import reverse
-from .models import Post
+from .models import Post, Comment
 from django import forms
 
 class PostAdminForm(forms.ModelForm):
@@ -31,7 +31,7 @@ class PostAdminForm(forms.ModelForm):
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'publish', 'view_author', 'status')
-    list_filter = ('publish', 'status', 'created_at', 'tags')
+    list_filter = ('publish', 'status', 'tags')
     search_fields = ['title', 'body']
     prepopulated_fields = {'slug': ['title']}
     raw_id_fields = ['author']
@@ -49,4 +49,17 @@ class PostAdmin(admin.ModelAdmin):
 
         return format_html('<a href="{}">{}</a>', url, obj.author)
 
+    view_author.short_description = 'Author'
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('post', 'view_author', 'body')
+    list_filter = ('created_at', 'active')
+    search_fields = ('name', 'email', 'body')
+    date_hierarchy = 'created_at'
+    ordering = ['active']
+
+    def view_author(self, obj):
+        return f'{obj.name} ({obj.email})'
+    
     view_author.short_description = 'Author'
