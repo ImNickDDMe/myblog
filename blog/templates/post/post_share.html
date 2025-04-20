@@ -6,5 +6,6 @@
     <form action="{% url 'blog:post_share' post.slug %}" method="post">
         {% csrf_token %}
         {{ form }}
+        <button type="submit">Share</button>
     </form>
 {% endblock content %}
