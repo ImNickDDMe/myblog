@@ -3,9 +3,27 @@
 {% block title %}Share "{{ post.title }}"{% endblock title %}
 
 {% block content %}
-    <form action="{% url 'blog:post_share' post.slug %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Share</button>
-    </form>
+    <section class="p-8 m-4 flex flex-col items-start gap-6">
+        <h2 class="text-4xl font-bold">Share "{{ post.title }}"</h2>
+        <form class="grid grid-cols-1 gap-4" action="{% url 'blog:post_share' post.slug %}" method="post">
+            {% csrf_token %}
+            <label for="name" class="floating-label">
+                <input id="name" placeholder="Your name" name="name" type="text" class="input input-lg" required>
+                <span class="label">Name</span>
+            </label>
+            <label for="email" class="floating-label">
+                <input id="email" placeholder="Your email" name="email" type="email" class="input input-lg" required>
+                <span class="label">Email</span>
+            </label>
+            <label for="to" class="floating-label">
+                <input id="to" placeholder="Receipient's email" name="to" type="to" class="input input-lg" required>
+                <span class="label">Email</span>
+            </label>
+            <label for="comments" class="floating-label">
+                <textarea class="textarea textarea-lg" name="comments" id="comments" required></textarea>
+                <span class="label">Comments</span>
+            </label>
+            <button class="btn btn-soft btn-info" type="submit">Share</button>
+        </form>
+    </section>
 {% endblock content %}
