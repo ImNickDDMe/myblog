@@ -12,9 +12,9 @@
 
 	<body>
 		<header>
-			<nav class="navbar bg-base-300 shadow-xl">
+			<nav class="navbar bg-base-300 shadow-lg rounded-full my-4">
 				<section class="flex-1">
-					<a href="{% url 'index' %}" class="px-4 font-semibold text-2xl">Myblog</a>
+					<a href="{% url 'index' %}" class="px-4 font-bold text-2xl">Myblog</a>
 					<span class="text-base-content/70">Express your opinions with ease</span>
 				</section>
 				<section class="flex-none">
@@ -29,5 +29,8 @@
 				</section>
 			</nav>
 		</header>
+		<main class="m-8">
+			{% block content %}{% endblock content %}
+		</main>
 	</body>
 </html>
