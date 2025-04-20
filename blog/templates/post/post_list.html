@@ -5,18 +5,16 @@
 {% block content %}
     <div class="m-16">
         {% for post in posts %}
-            <article class="bg-base-300 shadow-full rounded-lg p-8 m-12 flex flex-col items-start justify-between gap-4">
+            <article class="bg-base-300 shadow-full rounded-lg p-8 m-6 flex flex-col items-start justify-between gap-4">
                 <section class="grid grid-cols-2 gap-4">
                     <div>
                         <time class="text-md text-base-content/70" datetime="{{ post.publish }}">{{ post.publish }}</time>
                     </div>
                     <div>
                         {% for tag in post.tags.all %}
-                            {% with 'primary secondary accent info danger' as badge_types %}
-                                <span class="badge badge-soft badge-{% cycle 'primary' 'secondary' 'accent' 'info' 'danger' %}">
-                                    {{ tag.name }}
-                                </span>
-                            {% endwith %}
+                            <span class="badge badge-soft badge-{% cycle 'primary' 'secondary' 'accent' 'info' 'danger' %}">
+                                {{ tag.name }}
+                            </span>
                         {% endfor %}
                     </div>
                 </section>

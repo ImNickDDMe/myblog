@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from .forms import EmailPostForm, CommentForm
 from .models import Post, Comment
 
@@ -28,6 +28,11 @@ def post_details(request, year, month, day, post_slug):
     })
 
 def post_share(request, post_slug):
+    post = get_object_or_404(
+            Post,
+            slug=post_slug
+        )
+
     if request.method == 'POST':
         form = EmailPostForm(request.POST)
 
@@ -36,21 +41,27 @@ def post_share(request, post_slug):
     else:
         form = EmailPostForm()
 
-        post = get_object_or_404(
-            Post,
-            slug=post_slug
-        )
-
         return render(request, 'post/post_share.html', { 
             'form': form,
             'post': post
         })
     
-def post_comment(request):
+def post_comment(request, post_slug):
+    post = get_object_or_404(Post, slug=post_slug)
+    
     if request.method == 'POST':
         form = CommentForm(request.POST)
 
         if form.is_valid():
-            pass
+            
+            new_comment = Comment(
+                post_id=post.id,
+                name=form.cleaned_data['name'],
+                email=form.cleaned_data['email'],
+                body=form.cleaned_data['body']
+            )
+            new_comment.save()
+
+            return redirect(post.get_absolute_url())
     else:
-        pass
+        return redirect(post.get_absolute_url())

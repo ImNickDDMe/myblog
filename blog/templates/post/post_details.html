@@ -3,10 +3,62 @@
 {% block title %}{{ post.title }}{% endblock title %}
 
 {% block content %}
-    {{ post.title }}
-
-    <form action="{% url 'blog:post_comment' post.slug %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-    </form>
+    <section class="p-8 m-4 flex flex-col items-center gap-2"> 
+        <h2 class="text-4xl font-bold">{{ post.title }}</h2>
+        <span class="text-lg text-base-content/50">
+            Author: {{ post.author }} | Published: {{ post.publish }}
+        </span>
+    </section>
+    <section class="px-12 py-4 mb-6 flex-col items-center gap-6">
+        <p class="text-md text-base-content/70">{{ post.body }}</p>
+        <div class="mt-4 flex flex-row justify-between gap-2">
+            <div>
+                <span class="text-lg">Tags:</span>
+                {% for tag in post.tags.all %}
+                    <span class="badge badge-soft badge-xl badge-{% cycle 'primary' 'secondary' 'accent' 'info' 'danger' %}">
+                        {{ tag.name }}
+                    </span>
+                {% endfor %}
+            </div>
+            <div>
+                <a href="{% url 'blog:post_share' post.slug %}" class="btn btn-md rounded-full">
+                    Share this post via email
+                </a>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <section class="px-12 mt-8 flex flex-row justify-between gap-6">
+        <div class="flex flex-wrap flex-col items-start gap-6">
+            <h3 class="text-2xl font-semibold">
+                {{ comments|length }} Comments
+            </h3>
+            {% for comment in comments %}
+                <div class="mt-2 px-6 py-2">
+                    <h4 class="text-xl font-semibold">{{ comment.name }} said:</h4>
+                    <p class="text-lg text-base-content/50">{{ comment.body }}</p>
+                    <span class="text-md text-base-content/30">{{ comment.created_at }}</span>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="flex flex-wrap flex-col items-start gap-6">
+            <h3 class="text-2xl font-semibold">Write a comment</h3>
+            <form class="grid grid-cols-1 gap-4" action="{% url 'blog:post_comment' post.slug %}" method="post">
+                {% csrf_token %}
+                <label for="name" class="floating-label">
+                    <input id="name" placeholder="Your name" name="name" type="text" class="input input-lg" required>
+                    <span class="label">Name</span>
+                </label>
+                <label for="email" class="floating-label">
+                    <input id="email" placeholder="Your email" name="email" type="email" class="input input-lg" required>
+                    <span class="label">Email</span>
+                </label>
+                <label for="body" class="floating-label">
+                    <textarea class="textarea textarea-md" name="body" id="body" required></textarea>
+                    <span class="label">Body</span>
+                </label>
+                <button class="btn btn-info btn-soft" type="submit">Submit</button>
+            </form>
+        </div>
+    </section>
 {% endblock content %}
