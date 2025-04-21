@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+    <section class="pt-8 pb-4 m-8 flex flex-col items-center gap-2"> 
+        <h2 class="text-4xl font-bold">Login</h2>
+        <span class="text-lg text-base-content/70">
+            Don't have an account yet? 
+            <a href="{% url 'account:login' %}" class="link link-primary link-hover">
+                Register here.
+            </a>
+        </span>
+    </section>
+    <section class="py-2 mt-2 flex flex-col items-center gap-6">
+        <form class="grid grid-cols-1 gap-4" action="{% url 'account:login' %}" method="post">
+            {% csrf_token %}
+            <label for="email" class="floating-label">
+                <span class="label">Email</span>
+                <input class="input input-lg" type="email" name="email" id="email" required>
+            </label>
+            <label for="password" class="floating-label">
+                <span class="label">Password</span>
+                <input class="input input-lg" type="password" name="password" id="password" required>
+            </label>
+            <button type="submit" class="btn btn-soft btn-info">Login</button>
+        </form>
+        <span class="text-lg text-base-content/70">
+            Forgot your password?
+            <a class="link link-primary link-hover" href="{% url 'account:password_reset' %}">
+                Reset it here.
+            </a>
+        </span>
+    </section>
+{% endblock content %}
