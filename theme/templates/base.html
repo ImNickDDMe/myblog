@@ -28,7 +28,7 @@
 							<li>
 								<form id="logout_form" action="{% url 'account:logout' %}" method="post">
 									{% csrf_token %}
-									<a onclick="document.getElementById('logout_form').submit()" class="text-xl font-semibold">
+									<a href="#" onclick="document.getElementById('logout_form').submit()" class="text-xl font-semibold">
 										Logout
 									</a>
 								</form>

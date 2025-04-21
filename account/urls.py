@@ -1,10 +1,11 @@
+from .views import register, profile, CustomLoginView
 from django.urls import include, path
-from .views import register, profile
 
 app_name = 'account'
 
 urlpatterns = [
-    path('', include('django.contrib.auth.urls')),
+    path('login/', CustomLoginView.as_view(), name='login'),
     path('register/', register, name='register'),
-    path('profile/', profile, name='profile')
+    path('profile/', profile, name='profile'),
+    path('', include('django.contrib.auth.urls'))
 ]
