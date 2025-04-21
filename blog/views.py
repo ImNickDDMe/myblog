@@ -42,7 +42,7 @@ def post_share(request, post_slug):
                 [form.cleaned_data['to']]
             )
 
-            return redirect(post.get_absolute_url())
+            return redirect(Post)
     else:
         form = EmailPostForm()
 
@@ -67,6 +67,6 @@ def post_comment(request, post_slug):
             )
             new_comment.save()
 
-            return redirect(post.get_absolute_url())
+            return redirect(Post)
     else:
-        return redirect(post.get_absolute_url())
+        return redirect(Post)

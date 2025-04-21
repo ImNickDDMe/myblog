@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock title %}
+
+{% block content %}
+    <section class="pt-8 pb-4 m-8 flex flex-col items-center gap-2"> 
+        <h2 class="text-4xl font-bold">Register</h2>
+        <span class="text-lg text-base-content/70">
+            Already have an account? 
+            <a href="{% url 'account:login' %}" class="link link-primary link-hover">
+                Login here.
+            </a>
+        </span>
+    </section>
+    <section class="py-2 mt-2 flex flex-col items-center gap-6">
+        <form class="grid grid-cols-1 gap-4" action="{% url 'account:register' %}" method="post">
+            {% csrf_token %}
+            <label for="first_name" class="floating-label">
+                <span class="label">Firstname</span>
+                <input class="input input-lg" type="text" name="first_name" id="first_name" required>
+            </label>
+            <label for="last_name" class="floating-label">
+                <span class="label">Lastname</span>
+                <input class="input input-lg" type="text" name="last_name" id="last_name" required>
+            </label>
+            <label for="username" class="floating-label">
+                <span class="label">Username</span>
+                <input class="input input-lg" type="text" name="username" id="username" required>
+            </label>
+            <label for="email" class="floating-label">
+                <span class="label">Email</span>
+                <input class="input input-lg" type="email" name="email" id="email" required>
+            </label>
+            <label for="password1" class="floating-label">
+                <span class="label">Password</span>
+                <input class="input input-lg" type="password" name="password1" id="password1" required>
+            </label>
+            <label for="password2" class="floating-label">
+                <span class="label">Confirm Password</span>
+                <input class="input input-lg" type="password" name="password2" id="password2" required>
+            </label>
+            <button type="submit" class="btn btn-soft btn-info">Register</button>
+        </form>
+    </section>
+{% endblock content %}
