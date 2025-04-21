@@ -15,9 +15,9 @@
     <section class="py-2 mt-2 flex flex-col items-center gap-6">
         <form class="grid grid-cols-1 gap-4" action="{% url 'account:login' %}" method="post">
             {% csrf_token %}
-            <label for="email" class="floating-label">
-                <span class="label">Email</span>
-                <input class="input input-lg" type="email" name="email" id="email" required>
+            <label for="username" class="floating-label">
+                <span class="label">Username</span>
+                <input class="input input-lg" type="text" name="username" id="username" required>
             </label>
             <label for="password" class="floating-label">
                 <span class="label">Password</span>
