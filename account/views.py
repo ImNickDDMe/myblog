@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
+from .forms import RegistrationForm, UpdateUserDetails
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm
 
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
@@ -29,4 +29,16 @@ def register(request):
     
 @login_required(login_url='/account/login')
 def profile(request):
-    return render(request, 'registration/profile.html')
+    if request.method == 'POST':
+        form = UpdateUserDetails(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('account:profile')
+        
+        return render(request, 'registration/profile.html', {'form': form})
+    else:
+        form = UpdateUserDetails(instance=request.user)
+        
+        return render(request, 'registration/profile.html', {'form': form })

@@ -21,3 +21,23 @@ class RegistrationForm(UserCreationForm):
             user.save()
         
         return user
+    
+class UpdateUserDetails(forms.ModelForm):
+    first_name = forms.CharField(max_length=40)
+    last_name = forms.CharField(max_length=40)
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.email = self.cleaned_data['email']
+
+        if commit:
+            user.save()
+        
+        return user
