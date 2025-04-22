@@ -5,7 +5,7 @@ from .models import Post, Comment
 
 # Create your views here.
 def post_list(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter(status='P').all()
 
     return render(request, 'post/post_list.html', { 'posts': posts })
 
@@ -18,7 +18,7 @@ def post_details(request, year, month, day, post_slug):
         slug=post_slug
     )
 
-    comments = Comment.objects.filter(post_id=post.id)
+    comments = Comment.objects.filter(post_id=post.id, active=True)
 
     return render(request, 'post/post_details.html', { 
         'post': post,

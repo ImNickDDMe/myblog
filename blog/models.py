@@ -20,7 +20,7 @@ class Post(models.Model):
         DRAFT = 'DF', 'Draft'
         PUBLISHED = 'P', 'Published'
    
-    status = models.CharField(max_length=20, choices=Status, default=Status.DRAFT)
+    status = models.CharField(max_length=20, choices=Status, default=Status.PUBLISHED)
 
     class Meta:
         indexes = [
