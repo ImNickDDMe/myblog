@@ -1,6 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import EmailPostForm, CommentForm
-from django.core.paginator import Paginator
 from django.views.generic import ListView
 from django.core.mail import send_mail
 from .models import Post, Comment
@@ -43,7 +42,7 @@ def post_share(request, post_slug):
                 [form.cleaned_data['to']]
             )
 
-            return redirect(Post)
+            return redirect(post)
     else:
         form = EmailPostForm()
 
@@ -68,6 +67,6 @@ def post_comment(request, post_slug):
             )
             new_comment.save()
 
-            return redirect(Post)
+            return redirect(post)
     else:
-        return redirect(Post)
+        return redirect(post)
