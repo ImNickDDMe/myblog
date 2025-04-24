@@ -1,13 +1,14 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import EmailPostForm, CommentForm
+from django.core.paginator import Paginator
+from django.views.generic import ListView
 from django.core.mail import send_mail
 from .models import Post, Comment
 
 # Create your views here.
-def post_list(request):
-    posts = Post.objects.filter(status='P').all()
-
-    return render(request, 'post/post_list.html', { 'posts': posts })
+class PostListView(ListView):
+    paginate_by = 2
+    model = Post
 
 def post_details(request, year, month, day, post_slug):
     post = get_object_or_404(
