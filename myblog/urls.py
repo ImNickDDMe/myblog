@@ -27,5 +27,5 @@ urlpatterns = [
     path('', index, name='index'),
     path('blog/', include('blog.urls', namespace='blog')),
     path('account/', include('account.urls', namespace='account')),
-    path('__reload__/', include('django_browser_reload.urls')),
+    path('__reload__/', include('django_browser_reload.urls'))
 ]
