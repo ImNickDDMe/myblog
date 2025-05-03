@@ -3,9 +3,31 @@ from django.contrib.auth.models import User
 from django import forms
 
 class RegistrationForm(UserCreationForm):
-    first_name = forms.CharField(max_length=40, required=True)
-    last_name = forms.CharField(max_length=40, required=True)
-    email = forms.EmailField(required=True)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['username'].widget.attrs.update({'class': 'input input-lg'})
+        self.fields['password1'].widget.attrs.update({'class': 'input input-lg'})
+        self.fields['password2'].widget.attrs.update({'class': 'input input-lg'})
+
+    first_name = forms.CharField(
+        max_length=40,
+        label='Firstname',
+        widget=forms.TextInput(attrs={'class': 'input input-lg'}),
+        required=True
+    )
+    last_name = forms.CharField(
+        max_length=40,
+        label='Lastname',
+        widget=forms.TextInput(attrs={'class': 'input input-lg'}),
+        required=True
+    )
+    email = forms.EmailField(
+        label='Email',
+        widget=forms.EmailInput(attrs={'class': 'input input-lg'}),
+        required=True
+    )
+    
 
     class Meta:
         model = User
@@ -23,13 +45,27 @@ class RegistrationForm(UserCreationForm):
         return user
     
 class UpdateUserDetails(forms.ModelForm):
-    first_name = forms.CharField(max_length=40)
-    last_name = forms.CharField(max_length=40)
-    email = forms.EmailField()
+    first_name = forms.CharField(
+        max_length=40,
+        label='Firstname',
+        widget=forms.TextInput(attrs={'class': 'input input-lg'})
+    )
+    last_name = forms.CharField(
+        max_length=40,
+        label='Lastname',
+        widget=forms.TextInput(attrs={'class': 'input input-lg'})
+    )
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'input input-lg'})
+    )
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('first_name', 'last_name', 'username', 'email')
+
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'input input-lg', 'disabled': True})
+        }
 
     def save(self, commit=True):
         user = super().save(commit=False)

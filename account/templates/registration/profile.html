@@ -7,22 +7,12 @@
     <h2 class="text-4xl font-bold">Profile Settings</h2>
     <form class="grid grid-cols-1 gap-4" action="{% url 'account:profile' %}" method="post">
         {% csrf_token %}
-        <label for="first_name" class="floating-label">
-            <input id="first_name" name="first_name" type="text" value="{{ user.first_name }}" class="input input-lg" required>
-            <span class="label">Firstname</span>
-        </label>
-        <label for="last_name" class="floating-label">
-          <input id="last_name" name="first_name" type="text" value="{{ user.last_name }}" class="input input-lg" required>
-          <span class="label">Lastname</span>
-        </label>
-        <label for="username" class="floating-label">
-          <input id="username" name="username" type="text" value="{{ user.username }}" class="input input-lg" required>
-          <span class="label">Username</span>
-        </label>
-        <label for="email" class="floating-label">
-          <input id="email" name="email" type="email" value="{{ user.email }}" class="input input-lg" required>
-          <span class="label">Email</span>
-        </label>
+        {% for field in form %}
+          <label for="first_name" class="floating-label">
+            <span class="label">{{ field.label }}</span>
+            {{ field }}
+          </label>
+        {% endfor %}
         <button class="btn btn-soft btn-info" type="submit">Update Profile</button>
     </form>
     <p class="text-lg text-base-content/70">

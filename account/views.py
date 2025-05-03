@@ -14,8 +14,10 @@ def register(request):
     else:
         if request.user.is_authenticated:
             return redirect('account:profile')
+        
+        form = RegistrationForm()
 
-        return render(request, 'registration/register.html')
+        return render(request, 'registration/register.html', { 'form': form })
     
 @login_required(login_url='account:login')
 def profile(request):
